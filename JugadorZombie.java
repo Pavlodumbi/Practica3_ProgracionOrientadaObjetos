@@ -15,9 +15,34 @@ public class JugadorZombie
     /**
      * Constructor for objects of class JugadorZombie
      */
-    public JugadorZombie()
+    public JugadorZombie(String nombre)
     {
-
+        this.nombre = nombre;
+        cerebrosTotales = 0;
+        cerebrosTemporales = 0;
+        corredores = 0;
+        escopetas = 0;
     }
+    
+    public String getNombre(){
+        return nombre;
+    }
+    
+    public int getCerebros(){
+        return cerebrosTotales;
+    }
+    
+    public int getTempCerebros(){
+        return cerebrosTemporales;
+    }
+    
+    public int getCorredores(){
+        return corredores;
+    }
+    
+    public int getEscopetas(){
+        return escopetas;
+    }
+    
 
 }
