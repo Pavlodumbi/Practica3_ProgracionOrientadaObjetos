@@ -37,7 +37,7 @@ public class JuegoZombieDice
     public void AgarrarDadosBolsa(){
         JugadorZombie jugador = jugadores.get(jugadorEnTurno);
         int corredoresActu = jugador.getCorredores();
-        for(int i = 0; i <= (3-corredoresActu); i++){
+        for(int i = 0; i < (3-corredoresActu); i++){
         dadosEnJuego.add(bolsa.agarrarDados());
         }
     }
@@ -79,10 +79,21 @@ public class JuegoZombieDice
     }
     
     public void saltarTurno(){
+        retornarDadosABolsa();
         if(jugadorEnTurno+1 == cantidadJugadores){
             jugadorEnTurno = 0;
         }else{
             jugadorEnTurno++;
+        }
+    }
+    
+    private void retornarDadosABolsa(){
+        for(int i = 0; i < dadosEnJuego.size(); i++){
+            bolsa.recuperarDados(dadosEnJuego.remove(i));
+        }
+        
+        for(int i = 0; i < dadosJugados.size(); i++){
+            bolsa.recuperarDados(dadosJugados.remove(i));
         }
     }
 

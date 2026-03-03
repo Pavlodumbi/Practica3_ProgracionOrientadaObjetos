@@ -39,5 +39,9 @@ public class BolsaDados
         DadoZombie dadotemp = dados.remove(dadoIndex);
         return dadotemp;
     }
+    
+    public void recuperarDados(DadoZombie dado){
+        dados.add(dado);
+    }
 
 }
