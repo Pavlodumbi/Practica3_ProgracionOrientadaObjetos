@@ -96,5 +96,27 @@ public class JuegoZombieDice
             bolsa.recuperarDados(dadosJugados.remove(i));
         }
     }
+    
+    public boolean hayGanador(){
+        boolean ganador = false;
+        for(int i = 0; i < jugadores.size(); i++){
+        JugadorZombie jugador = jugadores.get(i);
+        if(jugador.getCerebros() >= 13){
+            ganador = true;
+        }
+        }
+        return ganador;
+    }
+    
+    public JugadorZombie getGanador(){
+        JugadorZombie ganador = null;
+        for(int i = 0; i < jugadores.size(); i++){
+            JugadorZombie jugador = jugadores.get(i);
+            if(jugador.getCerebros() >=13){
+                ganador = jugador;
+            }
+        }
+        return ganador;
+    }
 
 }
