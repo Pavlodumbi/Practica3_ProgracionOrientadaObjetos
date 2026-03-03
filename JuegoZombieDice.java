@@ -7,13 +7,12 @@ import java.util.*;
  */
 public class JuegoZombieDice
 {
-    BolsaDados bolsa;
-    ArrayList<JugadorZombie> jugadores;
-    int cantidadJugadores;
-    int jugadorEnTurno;
-    ArrayList<DadoZombie> dadosEnJuego;
-    ArrayList<DadoZombie> dadosJugados;
-    boolean jugadoresListos = false;
+    private BolsaDados bolsa;
+    private ArrayList<JugadorZombie> jugadores;
+    private int cantidadJugadores;
+    private int jugadorEnTurno;
+    private ArrayList<DadoZombie> dadosEnJuego;
+    private ArrayList<DadoZombie> dadosJugados;
     /**
      * Constructor for objects of class JuegoZombieDice
      */
