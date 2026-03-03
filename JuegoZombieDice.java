@@ -12,6 +12,7 @@ public class JuegoZombieDice
     int cantidadJugadores;
     int jugadorEnTurno;
     ArrayList<DadoZombie> dadosEnJuego;
+    ArrayList<DadoZombie> dadosJugados;
     boolean jugadoresListos = false;
     /**
      * Constructor for objects of class JuegoZombieDice
@@ -24,6 +25,7 @@ public class JuegoZombieDice
         jugadores = new ArrayList(cantidadJugadores);
         bolsa = new BolsaDados();
         dadosEnJuego = new ArrayList(3);
+        dadosJugados = new ArrayList(0);
     }
 
     public void agregarJugadores(String nombre){
@@ -35,7 +37,9 @@ public class JuegoZombieDice
     public void AgarrarDadosBolsa(){
         JugadorZombie jugador = jugadores.get(jugadorEnTurno);
         int corredoresActu = jugador.getCorredores();
-        dadosEnJuego = bolsa.agarrarDados(3);
+        for(int i = 0; i <= (3-corredoresActu); i++){
+        dadosEnJuego.add(bolsa.agarrarDados());
+        }
     }
 
     public void lanzarDados(){
@@ -46,22 +50,40 @@ public class JuegoZombieDice
     }
 
     public void procesarDados(){
+        int idx = 0;
         for(int i = 0; i < 3; i++){
             JugadorZombie jugador = jugadores.get(jugadorEnTurno);
-            DadoZombie dado = dadosEnJuego.get(i);
-
-            if(dado.getValor() == "brain")
+            DadoZombie dado = dadosEnJuego.get(idx);  
+            
+            if(dado.getValor() == "brain"){
                 jugador.sumarCerebrosTemporales(1);
-            else if(dado.getValor() == "runner")
+                dadosJugados.add(dadosEnJuego.remove(idx));
+            }
+            else if(dado.getValor() == "runner"){
                 jugador.sumarCorredores(1);
-            else if(dado.getValor() == "shotgun")
+                idx++;
+            }
+            else if(dado.getValor() == "shotgun"){
                 jugador.sumarEscopetas(1);
+                dadosJugados.add(dadosEnJuego.remove(idx));
+            }
         }
     }
     
     public JugadorZombie getResultadosJugada(){
         JugadorZombie jugador = jugadores.get(jugadorEnTurno);
+        if(jugador.getEscopetas() >=3){
+            saltarTurno();
+        }
         return jugador;
+    }
+    
+    public void saltarTurno(){
+        if(jugadorEnTurno+1 == cantidadJugadores){
+            jugadorEnTurno = 0;
+        }else{
+            jugadorEnTurno++;
+        }
     }
 
 }

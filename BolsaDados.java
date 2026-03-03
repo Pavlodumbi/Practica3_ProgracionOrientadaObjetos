@@ -33,14 +33,11 @@ public class BolsaDados
         }
 
     }
-    public ArrayList<DadoZombie> agarrarDados(int cuantos){
+    public DadoZombie agarrarDados(){
         Random rand = new Random();
-        ArrayList<DadoZombie> dadosAgarrados = new ArrayList(cuantos);
-        for(int i = 0; i < cuantos; i++){
-            int dadoIndex = rand.nextInt(dados.size());
-            dadosAgarrados.add(dados.remove(dadoIndex));
-        }
-        return dadosAgarrados;
+        int dadoIndex = rand.nextInt(dados.size());
+        DadoZombie dadotemp = dados.remove(dadoIndex);
+        return dadotemp;
     }
 
 }
