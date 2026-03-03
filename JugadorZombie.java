@@ -44,5 +44,26 @@ public class JugadorZombie
         return escopetas;
     }
     
+    public void sumarEscopetas(int escopetas){
+        this.escopetas += escopetas;
+    }
+    
+    public void sumarCorredores(int corredores){
+        this.corredores += corredores;
+    }
+    
+    public void sumarCerebrosTemporales(int cerebrosTemp){
+        cerebrosTemporales += cerebrosTemp;
+    }
+    
+    public void convertirCerebrosTemporales(){
+        cerebrosTotales += cerebrosTemporales;
+    }
+    
+    public void terminarTurno(){
+        cerebrosTemporales = 0;
+        escopetas = 0; 
+        corredores = 0;
+    }
 
 }
