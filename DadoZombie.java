@@ -17,6 +17,7 @@ public class DadoZombie
     public DadoZombie(String color)
     {
         dado = new Dado();
+        this.color = color;
         posiblesValores = new String[6];
         decidirPosiblesValores();
     }
