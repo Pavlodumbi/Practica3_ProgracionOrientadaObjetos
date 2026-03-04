@@ -11,6 +11,7 @@ public class UITexto
     public void main(){
         int cantidadJugadores = ingresarCantidadJugadores();
         int decision = 100;
+        boolean penalizo = false;
         JuegoZombieDice juego = new JuegoZombieDice(cantidadJugadores);
         for(int i = 0; i < cantidadJugadores; i++){
             String nombre = ingresarNombre(i+1);
@@ -49,11 +50,13 @@ public class UITexto
 
                 //Decidir siguiente jugada
                 decision = decidirSiguienteJugada();
-                if(decision == 2){
-                    actual.convertirCerebrosTemporales();
-                    juego.saltarTurno();
+                if(decision == 2 || actual.getEscopetas()>=3){
+                    penalizo = juego.saltarTurno();
+                    if(penalizo == true){
+                        System.out.println("Saltando turno debido a que obtuviste 3 escopetas o mas");
+                    }
                 }
-            }while(decision ==1 || actual.getEscopetas() >=3);
+            }while(decision == 1 && penalizo == false);
         }
 
     }

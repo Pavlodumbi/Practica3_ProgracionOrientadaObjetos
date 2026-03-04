@@ -51,10 +51,10 @@ public class JuegoZombieDice
 
     public void procesarDados(){
         int idx = 0;
+        JugadorZombie jugador = jugadores.get(jugadorEnTurno);
+        jugador.reestablecerCorredores();
         for(int i = 0; i < 3; i++){
-            JugadorZombie jugador = jugadores.get(jugadorEnTurno);
             DadoZombie dado = dadosEnJuego.get(idx);  
-            jugador.reestablecerCorredores();
             if(dado.getValor() == "brain"){
                 jugador.sumarCerebrosTemporales(1);
                 dadosJugados.add(dadosEnJuego.remove(idx));
