@@ -21,9 +21,9 @@ public class UITexto
         Scanner scan = new Scanner(System.in);
         while(!juego.hayGanador()){
             //Mostrar Jugador
-            JugadorZombie turno = juego.getJugadorActual();
-            System.out.println("Turno del jugador " + turno.getNombre() + ":");
-            System.out.println("Cerebros Actuales:" + turno.getCerebros());
+            JugadorZombie actual = juego.getJugadorActual();
+            System.out.println("Turno del jugador " + actual.getNombre() + ":");
+            System.out.println("Cerebros Actuales:" + actual.getCerebros());
 
             //Agarrar Dados
             do{
@@ -50,9 +50,10 @@ public class UITexto
                 //Decidir siguiente jugada
                 decision = decidirSiguienteJugada();
                 if(decision == 2){
+                    actual.convertirCerebrosTemporales();
                     juego.saltarTurno();
                 }
-            }while(decision !=1);
+            }while(decision ==1 || actual.getEscopetas() >=3);
         }
 
     }

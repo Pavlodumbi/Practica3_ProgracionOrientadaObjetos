@@ -65,5 +65,9 @@ public class JugadorZombie
         escopetas = 0; 
         corredores = 0;
     }
+    
+    public void reestablecerCorredores(){
+        corredores = 0;
+    }
 
 }

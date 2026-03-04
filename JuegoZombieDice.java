@@ -23,7 +23,7 @@ public class JuegoZombieDice
 
         jugadores = new ArrayList(cantidadJugadores);
         bolsa = new BolsaDados();
-        dadosEnJuego = new ArrayList(3);
+        dadosEnJuego = new ArrayList(0);
         dadosJugados = new ArrayList(0);
     }
 
@@ -33,11 +33,11 @@ public class JuegoZombieDice
         }
     }
 
-
     public void AgarrarDadosBolsa(){
         JugadorZombie jugador = jugadores.get(jugadorEnTurno);
         int corredoresActu = jugador.getCorredores();
-        for(int i = 0; i < (3-corredoresActu); i++){
+        int size = dadosEnJuego.size();
+        for(int i = 0; i < (3-size); i++){
             dadosEnJuego.add(bolsa.agarrarDados());
         }
     }
@@ -54,7 +54,7 @@ public class JuegoZombieDice
         for(int i = 0; i < 3; i++){
             JugadorZombie jugador = jugadores.get(jugadorEnTurno);
             DadoZombie dado = dadosEnJuego.get(idx);  
-            
+            jugador.reestablecerCorredores();
             if(dado.getValor() == "brain"){
                 jugador.sumarCerebrosTemporales(1);
                 dadosJugados.add(dadosEnJuego.remove(idx));
@@ -69,45 +69,57 @@ public class JuegoZombieDice
             }
         }
     }
-    
+
     public JugadorZombie getResultadosJugada(){
         JugadorZombie jugador = jugadores.get(jugadorEnTurno);
-        if(jugador.getEscopetas() >=3){
-            saltarTurno();
-        }
         return jugador;
     }
     
-    public void saltarTurno(){
+    public boolean penalizarJugador(){
+        boolean penalizo = false;
+        JugadorZombie actual = jugadores.get(jugadorEnTurno);
+        if(actual.getEscopetas() >= 3){
+            actual.terminarTurno();
+            penalizo = true;
+        }
+        return penalizo;
+    }
+
+    public boolean saltarTurno(){
+        JugadorZombie actual = jugadores.get(jugadorEnTurno);
+        boolean penalizo = penalizarJugador(); //Penalizara si tiene mas de 3 escopetas
+        actual.convertirCerebrosTemporales();
+        actual.terminarTurno();
         retornarDadosABolsa();
         if(jugadorEnTurno+1 == cantidadJugadores){
             jugadorEnTurno = 0;
         }else{
             jugadorEnTurno++;
         }
+        return penalizo;
     }
-    
+
     private void retornarDadosABolsa(){
         for(int i = 0; i < dadosEnJuego.size(); i++){
             bolsa.recuperarDados(dadosEnJuego.remove(i));
         }
-        
+
         for(int i = 0; i < dadosJugados.size(); i++){
             bolsa.recuperarDados(dadosJugados.remove(i));
         }
     }
-    
+
     public boolean hayGanador(){
         boolean ganador = false;
         for(int i = 0; i < jugadores.size(); i++){
-        JugadorZombie jugador = jugadores.get(i);
-        if(jugador.getCerebros() >= 13){
-            ganador = true;
-        }
+            JugadorZombie jugador = jugadores.get(i);
+            if(jugador.getCerebros() >= 13){
+                ganador = true;
+            }
         }
         return ganador;
     }
-    
+
     public JugadorZombie getGanador(){
         JugadorZombie ganador = null;
         for(int i = 0; i < jugadores.size(); i++){
@@ -118,11 +130,11 @@ public class JuegoZombieDice
         }
         return ganador;
     }
-    
+
     public JugadorZombie getJugadorActual(){
         return jugadores.get(jugadorEnTurno);
     }
-    
+
     public ArrayList<DadoZombie> getDadosAgarrados(){
         return dadosEnJuego;
     }
