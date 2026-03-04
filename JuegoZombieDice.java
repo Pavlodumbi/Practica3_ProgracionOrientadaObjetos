@@ -38,7 +38,7 @@ public class JuegoZombieDice
         JugadorZombie jugador = jugadores.get(jugadorEnTurno);
         int corredoresActu = jugador.getCorredores();
         for(int i = 0; i < (3-corredoresActu); i++){
-        dadosEnJuego.add(bolsa.agarrarDados());
+            dadosEnJuego.add(bolsa.agarrarDados());
         }
     }
 
@@ -121,6 +121,10 @@ public class JuegoZombieDice
     
     public JugadorZombie getJugadorActual(){
         return jugadores.get(jugadorEnTurno);
+    }
+    
+    public ArrayList<DadoZombie> getDadosAgarrados(){
+        return dadosEnJuego;
     }
 
 }

@@ -64,5 +64,9 @@ public class DadoZombie
         valor = posiblesValores[temp - 1];
         return valor;
     }
+    
+    public String getColor(){
+        return color;
+    }
 
 }
