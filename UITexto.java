@@ -35,13 +35,18 @@ public class UITexto
             System.out.println("Enter para Lanzar.");
             scan.nextLine();
             juego.lanzarDados();
-
-            //procesar los dados
-            juego.procesarDados();
-
-            //mostrar jugada 
+            
+            
+            //mostrar lanzada
             mostrarJugada(juego.getDadosAgarrados());
+            
+            //procesar los dados en el juego
+            juego.procesarDados();
+            
+            //Mostrar cambios en el jugador
             mostrarCambiosJugador(juego.getResultadosJugada());
+            
+
 
             //Decidir siguiente jugada
             int decision = decidirSiguienteJugada();
