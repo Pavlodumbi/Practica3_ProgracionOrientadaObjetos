@@ -15,42 +15,91 @@ public class UITexto
             String nombre = ingresarNombre(i+1);
             juego.agregarJugadores(nombre);
         }
-        
-        
+
         System.out.println("Juego Comienza");
         Scanner scan = new Scanner(System.in);
         while(!juego.hayGanador()){
-            String colores = "";
+            //Mostrar Jugador
             JugadorZombie turno = juego.getJugadorActual();
             System.out.println("Turno del jugador " + turno.getNombre() + ":");
             System.out.println("Cerebros Actuales:" + turno.getCerebros());
-            
+
+            //Agarrar Dados
             System.out.println("Pulsa Enter para agarrar 3 Dados de la bolsa");
-            String trash = scan.nextLine();
-            
+            scan.nextLine();
             juego.AgarrarDadosBolsa();
-            ArrayList<DadoZombie> dados = juego.getDadosAgarrados();
-            
-            for(int i = 0; i < 3; i++){
-                DadoZombie dado = dados.get(i);
-                colores += dado.getColor() + " ";
-            }
-            System.out.println("Han salido 3 dados, con los colores: " + colores);
+            //Mostrar los dados en consola
+            mostrarDados(juego.getDadosAgarrados());
+
+            //Lanzar dados
+            System.out.println("Enter para Lanzar.");
+            scan.nextLine();
+            juego.lanzarDados();
+
+            //procesar los dados
+            juego.procesarDados();
+
+            //mostrar jugada 
+            mostrarJugada(juego.getDadosAgarrados());
+            mostrarCambiosJugador(juego.getResultadosJugada());
+
+            //Decidir siguiente jugada
+            int decision = decidirSiguienteJugada();
         }
 
     }
-    public int ingresarCantidadJugadores(){
+
+    private int ingresarCantidadJugadores(){
         int cantidad = 0;
         Scanner scan = new Scanner(System.in);
-        
+
         System.out.print("Cuantos Jugadores: ");
         cantidad = scan.nextInt();
         return cantidad;
     }
-    
-    public String ingresarNombre(int idxJugador){
+
+    private String ingresarNombre(int idxJugador){
         Scanner scan = new Scanner(System.in);
         System.out.println("Ingresa el nombre del jugador " + idxJugador + ":");
         return scan.nextLine();
     }
+
+    private void mostrarDados(ArrayList<DadoZombie> dados){
+        String colores = "";
+        for(int i = 0; i < 3; i++){
+            DadoZombie dado = dados.get(i);
+            colores += dado.getColor() + " ";
+        }
+        System.out.println("Han salido 3 dados, con los colores: " + colores);
+    }
+
+    private void mostrarJugada(ArrayList<DadoZombie> dadosLanzados){
+        System.out.println("Los dados han sido lanzados y ha caido lo siguiente:");
+        for(int i = 0; i < 3; i++){
+            DadoZombie dado = dadosLanzados.get(i);
+            System.out.println("Dado " + (i+1) +": " + dado.getColor() + ", " + dado.getValor()); 
+        }
+    }
+
+    private void mostrarCambiosJugador(JugadorZombie actual){
+        System.out.println("Datos del jugador:");
+        System.out.println("Cerebros: " + actual.getCerebros());
+        System.out.println("Cerebros Temporales: " + actual.getTempCerebros());
+        System.out.println("Escopetas: " + actual.getEscopetas());
+        System.out.println("Corredores: " + actual.getCorredores());
+
+    }
+
+    private int decidirSiguienteJugada(){
+        int decision = 100;
+        Scanner scanear = new Scanner(System.in);
+        do{
+            System.out.println("\n" + "Desea volver a lanzar o convertir los cerebros temporales a totales");
+            System.out.println(" Ingresa 1 para lanzar");
+            System.out.println("Ingresa 2 para saltar Turno");
+            decision = scanear.nextInt();
+        }while(decision <1 || decision >2);
+        return decision;
+    }
+
 }
