@@ -33,6 +33,7 @@ public class JuegoZombieDice
         }
     }
 
+
     public void AgarrarDadosBolsa(){
         JugadorZombie jugador = jugadores.get(jugadorEnTurno);
         int corredoresActu = jugador.getCorredores();
@@ -116,6 +117,10 @@ public class JuegoZombieDice
             }
         }
         return ganador;
+    }
+    
+    public JugadorZombie getJugadorActual(){
+        return jugadores.get(jugadorEnTurno);
     }
 
 }
