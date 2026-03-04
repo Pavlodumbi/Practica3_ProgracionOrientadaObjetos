@@ -10,6 +10,7 @@ public class UITexto
 
     public void main(){
         int cantidadJugadores = ingresarCantidadJugadores();
+        int decision = 100;
         JuegoZombieDice juego = new JuegoZombieDice(cantidadJugadores);
         for(int i = 0; i < cantidadJugadores; i++){
             String nombre = ingresarNombre(i+1);
@@ -25,31 +26,33 @@ public class UITexto
             System.out.println("Cerebros Actuales:" + turno.getCerebros());
 
             //Agarrar Dados
-            System.out.println("Pulsa Enter para agarrar 3 Dados de la bolsa");
-            scan.nextLine();
-            juego.AgarrarDadosBolsa();
-            //Mostrar los dados en consola
-            mostrarDados(juego.getDadosAgarrados());
+            do{
+                System.out.println("Pulsa Enter para agarrar 3 Dados de la bolsa");
+                scan.nextLine();
+                juego.AgarrarDadosBolsa();
+                //Mostrar los dados en consola
+                mostrarDados(juego.getDadosAgarrados());
 
-            //Lanzar dados
-            System.out.println("Enter para Lanzar.");
-            scan.nextLine();
-            juego.lanzarDados();
-            
-            
-            //mostrar lanzada
-            mostrarJugada(juego.getDadosAgarrados());
-            
-            //procesar los dados en el juego
-            juego.procesarDados();
-            
-            //Mostrar cambios en el jugador
-            mostrarCambiosJugador(juego.getResultadosJugada());
-            
+                //Lanzar dados
+                System.out.println("Enter para Lanzar.");
+                scan.nextLine();
+                juego.lanzarDados();
 
+                //mostrar lanzada
+                mostrarJugada(juego.getDadosAgarrados());
 
-            //Decidir siguiente jugada
-            int decision = decidirSiguienteJugada();
+                //procesar los dados en el juego
+                juego.procesarDados();
+
+                //Mostrar cambios en el jugador
+                mostrarCambiosJugador(juego.getResultadosJugada());
+
+                //Decidir siguiente jugada
+                decision = decidirSiguienteJugada();
+                if(decision == 2){
+                    juego.saltarTurno();
+                }
+            }while(decision !=1);
         }
 
     }
