@@ -53,11 +53,15 @@ public class UITexto
                 if(decision == 2 || actual.getEscopetas()>=3){
                     penalizo = juego.saltarTurno();
                     if(penalizo == true){
-                        System.out.println("Saltando turno debido a que obtuviste 3 escopetas o mas");
+                        System.out.println("Saltando turno debido a que obtuviste 3 escopetas o mas \n");
                     }
                 }
             }while(decision == 1 && penalizo == false);
+
         }
+        //Mostrar al ganador
+        JugadorZombie ganador = juego.getGanador();
+        System.out.println("El jugador " + ganador.getNombre() + "ha ganado porque ha obtenido 13 cerebros o mas!");
 
     }
 
@@ -94,8 +98,8 @@ public class UITexto
     }
 
     private void mostrarCambiosJugador(JugadorZombie actual){
-        System.out.println("Datos del jugador:");
-        System.out.println("Cerebros: " + actual.getCerebros());
+        System.out.println("Datos actuales del jugador:");
+        //System.out.println("Cerebros: " + actual.getCerebros());
         System.out.println("Cerebros Temporales: " + actual.getTempCerebros());
         System.out.println("Escopetas: " + actual.getEscopetas());
         System.out.println("Corredores: " + actual.getCorredores());
